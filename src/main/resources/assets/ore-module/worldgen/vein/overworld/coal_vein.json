@@ -1,0 +1,10 @@
+{
+  "weight": 80,
+  "name": "Coal Vein",
+  "layer": 0,
+  "ores": [
+    {
+      "ore": "coal"
+    }
+  ]
+}

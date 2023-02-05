@@ -1,0 +1,14 @@
+[{
+  "modid": "ore-module",
+  "name": "Precision: Modules — Ore",
+  "description": "Ore part of Precision: Modules GregTech addon",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["WALHAY"],
+  "credits": "GregoriusT for GregTech",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["gregtech"]
+}]

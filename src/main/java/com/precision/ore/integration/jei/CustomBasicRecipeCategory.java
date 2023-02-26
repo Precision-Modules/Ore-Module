@@ -1,6 +1,6 @@
 package com.precision.ore.integration.jei;
 
-import gregtech.integration.jei.recipe.primitive.BasicRecipeCategory;
+import gregtech.integration.jei.basic.BasicRecipeCategory;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.recipe.IRecipeWrapper;

@@ -73,7 +73,7 @@ dependencies {
         compile 'zone.rong:mixinbooter:7.0'
     }
 
-    compile files("libs/gregtech-1.12.2-2.5.0-beta.jar")
+    compile files("libs/gregtech-1.12.2-2.5.2-beta.jar")
     compile files("libs/CodeChickenLib-1.12.2-3.2.3.358-deobf.jar")
     compile files("libs/jei_1.12.2-4.16.1.301.jar")
 }

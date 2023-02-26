@@ -19,7 +19,7 @@ public class OreRecipeLoader {
     public static void init(){
         OreModule.logger.info("Ore Module Registering Recipes...");
         if(OreConfig.disableGregTechScanners || OreConfig.disableGregTechOreGeneration) {
-            ModHandler.removeRecipes(rec -> rec.getRegistryName() != null && rec.getRegistryName().getNamespace().equals(GTValues.MODID) && rec.getRegistryName().getPath().contains("prospector_"));
+            ModHandler.removeRecipeByOutput(rec -> rec.getRegistryName() != null && rec.getRegistryName().getNamespace().equals(GTValues.MODID) && rec.getRegistryName().getPath().contains("prospector_"));
         }
 
         ModHandler.addMirroredShapedRecipe("primitive_drill", OreMetaItems.PRIMITIVE_DRILL.getStackForm(),

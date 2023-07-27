@@ -2,8 +2,8 @@ package com.precision.ore.asm;
 
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("OreModuleLoadingPlugin")

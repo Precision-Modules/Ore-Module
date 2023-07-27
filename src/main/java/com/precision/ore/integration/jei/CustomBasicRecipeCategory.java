@@ -1,11 +1,12 @@
 package com.precision.ore.integration.jei;
 
+import com.precision.ore.OreModule;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import org.jetbrains.annotations.NotNull;
-import com.precision.ore.OreModule;
+
+import javax.annotation.Nonnull;
 
 public abstract class CustomBasicRecipeCategory<T, W extends IRecipeWrapper> extends BasicRecipeCategory<T, W> {
 
@@ -13,7 +14,7 @@ public abstract class CustomBasicRecipeCategory<T, W extends IRecipeWrapper> ext
         super(uniqueName, localKey, background, guiHelper);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getModName() {
         return OreModule.MODID;

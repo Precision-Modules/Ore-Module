@@ -3,8 +3,11 @@ package com.precision.ore.api.renderer;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
 import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.texture.TextureUtils;
+import codechicken.lib.texture.TextureUtils.IIconRegister;
 import codechicken.lib.vec.Matrix4;
+import com.precision.ore.OreModule;
+import com.precision.ore.api.capability.IDrillHeadHolder;
+import com.precision.ore.api.textures.OreTextures;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.cclop.LightMapOperation;
 import gregtech.client.renderer.texture.Textures;
@@ -16,12 +19,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
-import com.precision.ore.OreModule;
-import com.precision.ore.api.capability.IDrillHeadHolder;
 
 import java.util.EnumSet;
 
-public class DrillHeadRenderer implements TextureUtils.IIconRegister {
+public class DrillHeadRenderer implements IIconRegister {
 
     @SideOnly(Side.CLIENT)
     private TextureAtlasSprite drillHead;
@@ -31,7 +32,7 @@ public class DrillHeadRenderer implements TextureUtils.IIconRegister {
     private final EnumSet<EnumFacing> facingToDraw = EnumSet.of(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST);
 
     public DrillHeadRenderer(){
-        Textures.iconRegisters.add(this);
+        OreTextures.iconRegisters.add(this);
     }
 
     @Override

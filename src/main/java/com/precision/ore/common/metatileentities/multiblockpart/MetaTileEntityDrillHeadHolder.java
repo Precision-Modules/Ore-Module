@@ -3,11 +3,14 @@ package com.precision.ore.common.metatileentities.multiblockpart;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import com.precision.ore.api.capability.IDrillHeadHolder;
 import com.precision.ore.api.metatileentities.OreMultiblockAbility;
+import com.precision.ore.api.textures.OreTextures;
 import com.precision.ore.common.tools.DrillHeadBehavior;
 import gregtech.api.GTValues;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.SlotWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
@@ -20,9 +23,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.ItemStackHandler;
-import com.precision.ore.api.capability.IDrillHeadHolder;
-import com.precision.ore.api.textures.OreTextures;
-import com.precision.ore.common.metatileentities.multiblocks.MetaTileEntityAbstractMiner;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,14 +46,14 @@ public class MetaTileEntityDrillHeadHolder extends MetaTileEntityMultiblockPart 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         return ModularUI.builder(GuiTextures.BACKGROUND, 176, 166)
-                .slot(this.drillHandler, 0, 79, 34, true, true)
+                .widget(new SlotWidget(drillHandler, 0, 79, 34)
+                        .setBackgroundTexture(GuiTextures.SLOT))
                 .bindPlayerInventory(entityPlayer.inventory)
                 .build(getHolder(), entityPlayer);
     }
 
     private boolean isMinerActive(){
-        MetaTileEntityAbstractMiner miner = ((MetaTileEntityAbstractMiner) getController());
-        return miner != null && miner.isActive();
+        return getController() != null && getController().isActive();
     }
 
     @Override
@@ -77,15 +77,12 @@ public class MetaTileEntityDrillHeadHolder extends MetaTileEntityMultiblockPart 
     }
 
     @Override
-    public void update() {
-        if(!getWorld().isRemote)
-            return;
+    public void randomDisplayTick() {
+        super.randomDisplayTick();
 
-        if(!hasDrillHead())
-            return;
-
-        if(isMinerActive())
+        if(isMinerActive()) {
             dustParticles();
+        }
     }
 
     @Override
@@ -100,14 +97,15 @@ public class MetaTileEntityDrillHeadHolder extends MetaTileEntityMultiblockPart 
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
-        data.setTag("inventory", drillHandler.serializeNBT());
-        return super.writeToNBT(data);
+        super.writeToNBT(data);
+        data.setTag("DrillHandler", drillHandler.serializeNBT());
+        return data;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound data) {
-        this.drillHandler.deserializeNBT(data.getCompoundTag("inventory"));
         super.readFromNBT(data);
+        drillHandler.deserializeNBT(data.getCompoundTag("DrillHandler"));
     }
 
     @Override
@@ -120,10 +118,11 @@ public class MetaTileEntityDrillHeadHolder extends MetaTileEntityMultiblockPart 
     public void receiveInitialSyncData(PacketBuffer buf) {
         super.receiveInitialSyncData(buf);
         try {
-            this.drillHandler.deserializeNBT(buf.readCompoundTag());
-        } catch (IOException e) {
-            // :3
-        }
+            NBTTagCompound data = buf.readCompoundTag();
+            if (data != null) {
+                drillHandler.deserializeNBT(data);
+            }
+        } catch (IOException ignored) {}
         scheduleRenderUpdate();
     }
 
@@ -139,7 +138,9 @@ public class MetaTileEntityDrillHeadHolder extends MetaTileEntityMultiblockPart 
     @Override
     public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
         super.renderMetaTileEntity(renderState, translation, pipeline);
-        OreTextures.DRILL_HEAD_RENDERER.render(renderState, translation, pipeline, getWorld() != null ? getPos().getY() : 0, hasDrillHead(), isMinerActive(), getDrillHeadColor());
+        if(getWorld() != null) {
+            OreTextures.DRILL_HEAD_RENDERER.render(renderState, translation, pipeline, getPos().getY(), hasDrillHead(), isMinerActive(), getDrillHeadColor());
+        }
     }
 
     private class InventoryDrillHandler extends ItemStackHandler {

@@ -1,5 +1,7 @@
 package com.precision.ore;
 
+import codechicken.lib.texture.TextureUtils;
+import com.precision.ore.api.textures.OreTextures;
 import com.precision.ore.api.worldgen.PrecisionWorldGenRegistry;
 import com.precision.ore.api.worldgen.vein.BedrockOreVeinSaveData;
 import com.precision.ore.common.items.OreMetaItems;
@@ -9,6 +11,8 @@ import com.precision.ore.network.PacketOreVeinList;
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.material.event.MaterialEvent;
+import gregtech.api.unification.material.event.PostMaterialEvent;
 import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.core.network.internal.NetworkHandler;
@@ -44,7 +48,7 @@ public class OreModule {
 
     public static final String MODID = "ore-module";
     public static final String NAME = "Precision: Modules — Ore";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "1.0.0";
 
     public static final Logger logger = LogManager.getLogger(NAME);
 
@@ -59,6 +63,7 @@ public class OreModule {
     @Mod.EventHandler
     void preInit(FMLPreInitializationEvent event) {
         NetworkHandler.getInstance().registerPacket(PacketOreVeinList.class);
+        TextureUtils.addIconRegister(OreTextures::register);
         OreMetaTileEntities.init();
     }
 
@@ -78,12 +83,15 @@ public class OreModule {
     }
 
     @SubscribeEvent
-    void registerMaterials(GregTechAPI.MaterialEvent event){
-        drillHeadMaterials = GregTechAPI.MaterialRegistry.getAllMaterials().stream()
+    void registerMaterials(MaterialEvent event) {
+        Materials.Iron.addFlags(MaterialFlags.GENERATE_FRAME);
+    }
+
+    @SubscribeEvent()
+    void postRegisterMaterials(PostMaterialEvent event){
+        drillHeadMaterials = GregTechAPI.materialManager.getRegisteredMaterials().stream()
                 .filter(material -> material != null && material.hasProperty(PropertyKey.TOOL) && material.hasFlags(MaterialFlags.GENERATE_DENSE, MaterialFlags.GENERATE_RING, MaterialFlags.GENERATE_LONG_ROD))
                 .collect(Collectors.toList());
-
-        Materials.Iron.addFlags(MaterialFlags.GENERATE_FRAME);
     }
 
     @SubscribeEvent

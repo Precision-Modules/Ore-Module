@@ -1,7 +1,7 @@
 dependencies {
     implementation rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
 
-    implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:4637703-deobf-4637704-sources-4637705")
+    implementation rfg.deobf("curse.maven:gregtech-ce-unofficial-557242:4904269-deobf-4904270-sources-4904271")
 
     implementation rfg.deobf("curse.maven:applied-energistic-2-extended-life-570458:4646658")
 

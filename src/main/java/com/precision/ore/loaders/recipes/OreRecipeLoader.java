@@ -9,53 +9,61 @@ import net.minecraft.init.Items;
 
 public class OreRecipeLoader {
 
-    public static void init(){
-        OreModule.logger.info("Ore Module Registering Recipes...");
-        if(OreConfig.disableGregTechScanners) {
-            ModHandler.removeRecipeByOutput(rec -> rec.getRegistryName() != null && rec.getRegistryName().getNamespace().equals(GTValues.MODID) && rec.getRegistryName().getPath().contains("prospector_"));
-        }
+	public static void init() {
+		OreModule.logger.info("Ore Module Registering Recipes...");
+		if (OreConfig.disableGregTechScanners) {
+			ModHandler.removeRecipeByOutput(rec -> rec.getRegistryName() != null
+					&& rec.getRegistryName().getNamespace().equals(GTValues.MODID)
+					&& rec.getRegistryName().getPath().contains("prospector_"));
+		}
 
-        ModHandler.addMirroredShapedRecipe("primitive_drill", OreMetaItems.PRIMITIVE_DRILL.getStackForm(),
-                "  S", "FS ", "FF ",
-                'S', Items.STICK,
-                'F', Items.FLINT);
+		ModHandler.addMirroredShapedRecipe(
+				"primitive_drill",
+				OreMetaItems.PRIMITIVE_DRILL.getStackForm(),
+				"  S",
+				"FS ",
+				"FF ",
+				'S',
+				Items.STICK,
+				'F',
+				Items.FLINT);
 
-  /*      for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.LV)) {
-            ModHandler.addShapedEnergyTransferRecipe("prospector.lv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_LV.getStackForm(),
-                    batteryItem::isItemEqual, true, true,
-                    "SPE", "CDC", "PBP",
-                    'E', MetaItems.EMITTER_LV.getStackForm(),
-                    'P', new UnificationEntry(OrePrefix.plate, Materials.Steel),
-                    'S', MetaItems.SENSOR_LV.getStackForm(),
-                    'D', new UnificationEntry(OrePrefix.plate, Materials.Glass),
-                    'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.LV),
-                    'B', batteryItem.getStackForm());
-        }
+		/*      for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.LV)) {
+			ModHandler.addShapedEnergyTransferRecipe("prospector.lv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_LV.getStackForm(),
+					batteryItem::isItemEqual, true, true,
+					"SPE", "CDC", "PBP",
+					'E', MetaItems.EMITTER_LV.getStackForm(),
+					'P', new UnificationEntry(OrePrefix.plate, Materials.Steel),
+					'S', MetaItems.SENSOR_LV.getStackForm(),
+					'D', new UnificationEntry(OrePrefix.plate, Materials.Glass),
+					'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.LV),
+					'B', batteryItem.getStackForm());
+		}
 
-        for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.HV)) {
-            ModHandler.addShapedEnergyTransferRecipe("prospector.hv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_HV.getStackForm(),
-                    batteryItem::isItemEqual, true, true,
-                    "SPE", "CDC", "PBP",
-                    'E', MetaItems.EMITTER_HV.getStackForm(),
-                    'P', new UnificationEntry(OrePrefix.plate, Materials.StainlessSteel),
-                    'S', MetaItems.SENSOR_HV.getStackForm(),
-                    'D', MetaItems.COVER_SCREEN.getStackForm(),
-                    'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.HV),
-                    'B', batteryItem.getStackForm());
+		for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.HV)) {
+			ModHandler.addShapedEnergyTransferRecipe("prospector.hv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_HV.getStackForm(),
+					batteryItem::isItemEqual, true, true,
+					"SPE", "CDC", "PBP",
+					'E', MetaItems.EMITTER_HV.getStackForm(),
+					'P', new UnificationEntry(OrePrefix.plate, Materials.StainlessSteel),
+					'S', MetaItems.SENSOR_HV.getStackForm(),
+					'D', MetaItems.COVER_SCREEN.getStackForm(),
+					'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.HV),
+					'B', batteryItem.getStackForm());
 
-        }
+		}
 
-        for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.LuV)) {
-            ModHandler.addShapedEnergyTransferRecipe("prospector.luv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_LUV.getStackForm(),
-                    batteryItem::isItemEqual, true, true,
-                    "SPE", "CDC", "PBP", 'E', MetaItems.EMITTER_LuV.getStackForm(),
-                    'P', new UnificationEntry(OrePrefix.plate, Materials.RhodiumPlatedPalladium),
-                    'S', MetaItems.SENSOR_LuV.getStackForm(),
-                    'D', MetaItems.COVER_SCREEN.getStackForm(),
-                    'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.LuV),
-                    'B', batteryItem.getStackForm());
-        }*/
+		for (MetaItem<?>.MetaValueItem batteryItem : ToolRecipeHandler.batteryItems.get(GTValues.LuV)) {
+			ModHandler.addShapedEnergyTransferRecipe("prospector.luv_" + batteryItem.unlocalizedName, OreMetaItems.PROSPECTOR_LUV.getStackForm(),
+					batteryItem::isItemEqual, true, true,
+					"SPE", "CDC", "PBP", 'E', MetaItems.EMITTER_LuV.getStackForm(),
+					'P', new UnificationEntry(OrePrefix.plate, Materials.RhodiumPlatedPalladium),
+					'S', MetaItems.SENSOR_LuV.getStackForm(),
+					'D', MetaItems.COVER_SCREEN.getStackForm(),
+					'C', new UnificationEntry(OrePrefix.circuit, MarkerMaterials.Tier.LuV),
+					'B', batteryItem.getStackForm());
+		}*/
 
-        DrillHeadRecipeHandler.init();
-    }
+		DrillHeadRecipeHandler.init();
+	}
 }
